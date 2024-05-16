@@ -1,27 +1,8 @@
-# Dual Aggregation Transformer for Image Super-Resolution
+# CIT: Complementary Interaction Transformer for Lightweight Super Resolution
 
-[Zheng Chen](https://zhengchen1999.github.io/), [Yulun Zhang](http://yulunzhang.com/), [Jinjin Gu](https://www.jasongt.com/), [Linghe Kong](https://www.cs.sjtu.edu.cn/~linghe.kong/), [Xiaokang Yang](https://scholar.google.com/citations?user=yDEavdMAAAAJ&hl), and [Fisher Yu](https://www.yf.io/), "Dual Aggregation Transformer for Image Super-Resolution", ICCV, 2023
 
-[[paper](https://openaccess.thecvf.com/content/ICCV2023/papers/Chen_Dual_Aggregation_Transformer_for_Image_Super-Resolution_ICCV_2023_paper.pdf)] [[arXiv](http://arxiv.org/abs/2308.03364)] [[supplementary material](https://github.com/zhengchen1999/DAT/releases)] [[visual results](https://drive.google.com/drive/folders/1ZMaZyCer44ZX6tdcDmjIrc_hSsKoMKg2?usp=drive_link)] [[pretrained models](https://drive.google.com/drive/folders/1iBdf_-LVZuz_PAbFtuxSKd_11RL1YKxM?usp=drive_link)]
+> **Abstract:** *The lightweight super resolution methods based on deep learning have gained widespread attention in this field due to their better universality and applicability. Although Dual Aggregation Transformer (DAT) has achieved good results in lightweight super resolution, the DAT focuses too much on the transformer branch and ignores the parallel pointwise convolution branch in order to achieve lightweighting. Previous methods have lacked attention to the interaction of high-frequency and low-frequency information in the restoration of images. We believe that these two branches can maintain mutual interaction while complementing each other. In this paper, we propose a complementary interaction transformer (CIT) for lightweight super resolution, which enhances pointwise convolution parallel modules of the traditional DAT. This network introduces three crafted modules: high frequency attention block (HFAB), efficient integration block (EIB), and gated high frequency feedforward (GHFF). The HFAB and EIB combine to form our transformer complementary interaction transformer block (CITB). CITB integrates low frequency information in the image and HFAB precisely utilizes high frequency information. EIB enhances the cognitive dimension of the network by strengthening non-linearity and increasing the receptive field. Utimately, a backbone network structure is formed where high-low frequency information complement and interaction spatial-channel wise information. Each module is designed with consideration for its impact on number of parameters. Experimental results reveal that our complementary interaction transformer for lightweight super resolution that achieves the better super resolution results with a less number of parameters.* 
 
-#### 🔥🔥🔥 News
-
-- **2023-09-17:** The [chaiNNer](https://github.com/chaiNNer-org/chaiNNer) and the [neosr](https://github.com/muslll/neosr) add DAT support. Additional trained DAT models are available in [OpenMMLab](https://openmodeldb.info/?sort=date-desc&t=arch%3Adat) ([#11](https://github.com/zhengchen1999/DAT/issues/11)). Thank [Phhofm](https://github.com/Phhofm)!
-- **2023-07-16:** This repo is released.
-- **2023-07-14:** DAT is accepted at ICCV 2023. 🎉🎉🎉
-
----
-
-> **Abstract:** *Transformer has recently gained considerable popularity in low-level vision tasks, including image super-resolution (SR). These networks utilize self-attention along different dimensions, spatial or channel, and achieve impressive performance. This inspires us to combine the two dimensions in Transformer for a more powerful representation capability. Based on the above idea, we propose a novel Transformer model, Dual Aggregation Transformer (DAT), for image SR. Our DAT aggregates features across spatial and channel dimensions, in the inter-block and intra-block dual manner. Specifically, we alternately apply spatial and channel self-attention in consecutive Transformer blocks. The alternate strategy enables DAT to capture the global context and realize inter-block feature aggregation. Furthermore, we propose the adaptive interaction module (AIM) and the spatial-gate feed-forward network (SGFN) to achieve intra-block feature aggregation. AIM complements two self-attention mechanisms from corresponding dimensions. Meanwhile, SGFN introduces additional non-linear spatial information in the feed-forward network. Extensive experiments show that our DAT surpasses current methods.* 
-
-![](figs/DAT.png)
-
----
-
-|                      HR                      |                        LR                         | [SwinIR](https://github.com/JingyunLiang/SwinIR) |  [CAT](https://github.com/zhengchen1999/CAT)  |                  DAT (ours)                   |
-| :------------------------------------------: | :-----------------------------------------------: | :----------------------------------------------: | :-------------------------------------------: | :-------------------------------------------: |
-| <img src="figs/img_059_HR_x4.png" height=80> | <img src="figs/img_059_Bicubic_x4.png" height=80> | <img src="figs/img_059_SwinIR_x4.png" height=80> | <img src="figs/img_059_CAT_x4.png" height=80> | <img src="figs/img_059_DAT_x4.png" height=80> |
-| <img src="figs/img_049_HR_x4.png" height=80> | <img src="figs/img_049_Bicubic_x4.png" height=80> | <img src="figs/img_049_SwinIR_x4.png" height=80> | <img src="figs/img_049_CAT_x4.png" height=80> | <img src="figs/img_049_DAT_x4.png" height=80> |
 
 ## Dependencies
 
@@ -29,14 +10,6 @@
 - PyTorch 1.8.0
 - NVIDIA GPU + [CUDA](https://developer.nvidia.com/cuda-downloads)
 
-```bash
-# Clone the github repo and go to the default directory 'DAT'.
-git clone https://github.com/zhengchen1999/DAT.git
-conda create -n DAT python=3.8
-conda activate DAT
-pip install -r requirements.txt
-python setup.py develop
-```
 
 ## Contents
 
@@ -60,16 +33,6 @@ Used training and testing sets can be downloaded as follows:
 
 Download training and testing datasets and put them into the corresponding folders of `datasets/`. See [datasets](datasets/README.md) for the detail of the directory structure.
 
-## Models
-
-| Method    | Params | FLOPs (G) | Dataset  | PSNR (dB) |  SSIM  |                          Model Zoo                           |                        Visual Results                        |
-| :-------- | :----: | :-------: | :------: | :-------: | :----: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| DAT-S     | 11.21M |  203.34   | Urban100 |   27.68   | 0.8300 | [Google Drive](https://drive.google.com/drive/folders/1hM0v3fUg5u6GjkI7dduxShyGgGfEwQXO?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1rgkCyqEJdZlHvQ6_Dwb3rA?pwd=4rfr) | [Google Drive](https://drive.google.com/file/d/1x1ixMswxw5w-zeZ_Rap5Nk4Tr46MIjAw/view?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1LO-INqy40F5T_coAJsl5qw?pwd=dqnv) |
-| DAT       | 14.80M |  275.75   | Urban100 |   27.87   | 0.8343 | [Google Drive](https://drive.google.com/drive/folders/14VG5mw5ie8RrR4jjypeHynXDZYWL8w-r?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1rgkCyqEJdZlHvQ6_Dwb3rA?pwd=4rfr) | [Google Drive](https://drive.google.com/file/d/1K43CTsXpoX5St5fed4kEW9gu2KMR6hLu/view?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1LO-INqy40F5T_coAJsl5qw?pwd=dqnv) |
-| DAT-2     | 11.21M |  216.93   | Urban100 |   27.86   | 0.8341 | [Google Drive](https://drive.google.com/drive/folders/1yV9LMhr2tYM_eHEIVY4Jw9X3bWGgorbD?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1rgkCyqEJdZlHvQ6_Dwb3rA?pwd=4rfr) | [Google Drive](https://drive.google.com/file/d/1TQRZIg8at5HX87OCu3GYytZhYGperkuN/view?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1LO-INqy40F5T_coAJsl5qw?pwd=dqnv) |
-| DAT-light |  573K  |   49.69   | Urban100 |   26.64   | 0.8033 | [Google Drive](https://drive.google.com/drive/folders/105JRMN5VJbJ7EMQJdqmhDVMAFCaKYDl8?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1rgkCyqEJdZlHvQ6_Dwb3rA?pwd=4rfr) | [Google Drive](https://drive.google.com/file/d/1xKxK6_UcqAWK2m5znQX_LssWndmN-End/view?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1LO-INqy40F5T_coAJsl5qw?pwd=dqnv) |
-
-The performance is reported on Urban100 (x4). DAT-S, DAT, DAT-2: output size of FLOPs is 3×512×512. DAT-light: output size of FLOPs is 3×1280×720. 
 
 ## Training
 
@@ -217,18 +180,7 @@ We achieved state-of-the-art performance. Detailed results can be found in the p
 </p>
 </details>
 
-## Citation
 
-If you find the code helpful in your research or work, please cite the following paper(s).
-
-```
-@inproceedings{chen2023dual,
-    title={Dual Aggregation Transformer for Image Super-Resolution},
-    author={Chen, Zheng and Zhang, Yulun and Gu, Jinjin and Kong, Linghe and Yang, Xiaokang and Yu, Fisher},
-    booktitle={ICCV},
-    year={2023}
-}
-```
 
 ## Acknowledgements
 
